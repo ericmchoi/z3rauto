@@ -1,0 +1,33 @@
+{
+  "name": "z3rauto",
+  "version": "1.0.0",
+  "description": "Autotracking library for A Link to the Past Randomizer",
+  "main": "dist/z3rauto-cjs.js",
+  "module": "dist/z3rauto.js",
+  "types": "types/Z3rAuto.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "scripts": {
+    "build": "esbuild ./src/Z3rAuto.js --bundle --format=esm --outfile=dist/z3rauto.js",
+    "build:cjs": "esbuild ./src/Z3rAuto.js --bundle --format=cjs --outfile=dist/z3rauto-cjs.js",
+    "build:types": "tsc -d --declarationDir types --emitDeclarationOnly",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eric Choi",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^14.14.10",
+    "@typescript-eslint/eslint-plugin": "^4.9.0",
+    "@typescript-eslint/parser": "^4.9.0",
+    "esbuild": "^0.8.32",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.2.1",
+    "typescript": "^4.1.2"
+  }
+}
