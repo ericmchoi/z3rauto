@@ -4,6 +4,8 @@ import keys from './keys';
 import bigKeys from './bigKeys';
 import locations from './locations';
 
+const DEFAULT_TIMEOUT = 3000;
+
 type Item = {
   id: string;
   name: string;
@@ -36,8 +38,8 @@ class Z3rAuto extends SnesConnector {
   private sram: Uint8Array;
   private gameStatus: number;
 
-  constructor(url = 'ws://127.0.0.1:8080') {
-    super(url);
+  constructor(url = 'ws://127.0.0.1:8080', timeout = DEFAULT_TIMEOUT) {
+    super(url, timeout);
     this.sram = new Uint8Array(0x500);
     this.gameStatus = 0x0;
   }

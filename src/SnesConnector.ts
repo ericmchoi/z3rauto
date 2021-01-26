@@ -1,5 +1,3 @@
-const REQUEST_TIMEOUT = 3000;
-
 type SnesRequest = {
   Opcode: string;
   Space: string;
@@ -11,11 +9,13 @@ const hexString = (num: number): string => num.toString(16).toUpperCase();
 
 class SnesConnector {
   private url: string;
+  private timeout: number;
   private socket: WebSocket | undefined;
   private hasRequest;
 
-  constructor(url = 'ws://127.0.0.1:8080') {
+  constructor(url: string, timeout: number) {
     this.url = url;
+    this.timeout = timeout;
     this.hasRequest = false;
   }
 
@@ -27,7 +27,12 @@ class SnesConnector {
       }
 
       this.socket = new WebSocket(this.url);
-      this.socket.onopen = () => resolve();
+
+      const timeout = setTimeout(() => this.socket?.close(), this.timeout);
+      this.socket.onopen = () => {
+        clearTimeout(timeout);
+        resolve();
+      };
       this.socket.onclose = () => reject(Error('Socket was closed.'));
     });
   }
@@ -64,7 +69,7 @@ class SnesConnector {
         setTimeout(() => {
           this.hasRequest = false;
           reject(Error('Request timed out.'));
-        }, REQUEST_TIMEOUT);
+        }, this.timeout);
       }
     });
   }
