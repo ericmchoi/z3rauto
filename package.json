@@ -1,6 +1,6 @@
 {
   "name": "z3rauto",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Autotracking library for A Link to the Past Randomizer",
   "main": "dist/z3rauto-cjs.js",
   "module": "dist/z3rauto.js",

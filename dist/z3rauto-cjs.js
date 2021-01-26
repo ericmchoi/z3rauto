@@ -12,11 +12,11 @@ __export(exports, {
 });
 
 // src/SnesConnector.ts
-var REQUEST_TIMEOUT = 3e3;
 var hexString = (num) => num.toString(16).toUpperCase();
 var SnesConnector = class {
-  constructor(url = "ws://127.0.0.1:8080") {
+  constructor(url, timeout) {
     this.url = url;
+    this.timeout = timeout;
     this.hasRequest = false;
   }
   connect() {
@@ -26,7 +26,11 @@ var SnesConnector = class {
         return;
       }
       this.socket = new WebSocket(this.url);
-      this.socket.onopen = () => resolve();
+      const timeout = setTimeout(() => this.socket?.close(), this.timeout);
+      this.socket.onopen = () => {
+        clearTimeout(timeout);
+        resolve();
+      };
       this.socket.onclose = () => reject(Error("Socket was closed."));
     });
   }
@@ -57,7 +61,7 @@ var SnesConnector = class {
         setTimeout(() => {
           this.hasRequest = false;
           reject(Error("Request timed out."));
-        }, REQUEST_TIMEOUT);
+        }, this.timeout);
       }
     });
   }
@@ -1045,9 +1049,10 @@ var locations = [
 var locations_default = locations;
 
 // src/Z3rAuto.ts
+var DEFAULT_TIMEOUT = 3e3;
 var Z3rAuto = class extends SnesConnector_default {
-  constructor(url = "ws://127.0.0.1:8080") {
-    super(url);
+  constructor(url = "ws://127.0.0.1:8080", timeout = DEFAULT_TIMEOUT) {
+    super(url, timeout);
     this.sram = new Uint8Array(1280);
     this.gameStatus = 0;
   }

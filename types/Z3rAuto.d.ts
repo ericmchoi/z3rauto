@@ -25,7 +25,7 @@ declare type TrackedValues<T> = {
 declare class Z3rAuto extends SnesConnector {
     private sram;
     private gameStatus;
-    constructor(url?: string);
+    constructor(url?: string, timeout?: number);
     update(): Promise<void>;
     get status(): number;
     get items(): TrackedValues<Item>;
