@@ -21,7 +21,7 @@ const items = [
     id: 'redBoomerang',
     name: `Magical Boomerang`,
     offset: 0x38c,
-    mask: 0x80,
+    mask: 0x40,
   },
   {
     id: 'hookshot',
