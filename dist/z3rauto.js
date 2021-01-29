@@ -115,7 +115,7 @@ var items = [
     id: "redBoomerang",
     name: `Magical Boomerang`,
     offset: 908,
-    mask: 128
+    mask: 64
   },
   {
     id: "hookshot",
