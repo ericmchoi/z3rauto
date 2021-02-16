@@ -1,5 +1,6 @@
 import SnesConnector from './SnesConnector';
 import items from './items';
+import equips from './equips';
 import keys from './keys';
 import bigKeys from './bigKeys';
 import locations from './locations';
@@ -10,6 +11,12 @@ type Item = {
   id: string;
   name: string;
   isFound: boolean;
+};
+
+type Equip = {
+  id: string;
+  name: string;
+  level: number;
 };
 
 type Key = {
@@ -64,6 +71,16 @@ class Z3rAuto extends SnesConnector {
       (prev, { id, name, offset, mask }) => ({
         ...prev,
         [id]: { id, name, isFound: !!(this.sram[offset] & mask) },
+      }),
+      {}
+    );
+  }
+
+  get equips(): TrackedValues<Equip> {
+    return equips.reduce(
+      (prev, { id, name, offset, mask }) => ({
+        ...prev,
+        [id]: { id, name, level: this.sram[offset] & mask },
       }),
       {}
     );
