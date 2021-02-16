@@ -4,6 +4,11 @@ declare type Item = {
     name: string;
     isFound: boolean;
 };
+declare type Equip = {
+    id: string;
+    name: string;
+    level: number;
+};
 declare type Key = {
     id: string;
     name: string;
@@ -29,6 +34,7 @@ declare class Z3rAuto extends SnesConnector {
     update(): Promise<void>;
     get status(): number;
     get items(): TrackedValues<Item>;
+    get equips(): TrackedValues<Equip>;
     get keys(): TrackedValues<Key>;
     get bigKeys(): TrackedValues<BigKey>;
     get locations(): TrackedValues<Location>;

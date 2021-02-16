@@ -306,6 +306,29 @@ var items = [
 ];
 var items_default = items;
 
+// src/equips.ts
+var equips = [
+  {
+    id: "sword",
+    name: `Sword`,
+    offset: 857,
+    mask: 15
+  },
+  {
+    id: "shield",
+    name: `Shield`,
+    offset: 858,
+    mask: 15
+  },
+  {
+    id: "armor",
+    name: `Armor`,
+    offset: 859,
+    mask: 15
+  }
+];
+var equips_default = equips;
+
 // src/keys.ts
 var keys = [
   {
@@ -1055,6 +1078,12 @@ var Z3rAuto = class extends SnesConnector_default {
     return items_default.reduce((prev, {id, name, offset, mask}) => ({
       ...prev,
       [id]: {id, name, isFound: !!(this.sram[offset] & mask)}
+    }), {});
+  }
+  get equips() {
+    return equips_default.reduce((prev, {id, name, offset, mask}) => ({
+      ...prev,
+      [id]: {id, name, level: this.sram[offset] & mask}
     }), {});
   }
   get keys() {
